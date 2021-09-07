@@ -1,0 +1,1 @@
+﻿export const API_GET_DATA = 'weatherforecast/GetPosts';
