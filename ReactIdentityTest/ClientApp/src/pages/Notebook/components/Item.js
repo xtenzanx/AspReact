@@ -10,9 +10,9 @@ const Item = ({ id, note, date, time, deleteData, submittingStatus }) => {
     }
 
     return <div className="item">
-        <span>{note}</span>
-        <span>{`${date} ${time}`}</span>
-        <button onClick={deleteItem} className="remove">刪除</button>
+        <span className="mr-4">{note}</span>
+        <span className="mr-4">{`${date} ${time}`}</span>
+        <button onClick={deleteItem} className="remove btn btn-danger">刪除</button>
     </div>
 }
 

@@ -35,13 +35,21 @@ const Edit = ({ add, submittingStatus }) => {
 
     return <div>
         <h1>備忘錄</h1>
-        <p>記事:</p>
-        <input type="text" value={note} onChange={noteChange} />
-        <p>日期:</p>
-        <input type="date" value={date} onChange={dateChange} />
-        <p>時間:</p>
-        <input type="time" value={time} onChange={timeChange} />
-        <button onClick={addItem} className="add">新增</button>
+        <div>
+            <div className="form-group">
+                <label>記事:</label>
+                <input type="text" className="form-control" value={note} onChange={noteChange} />
+            </div>
+            <div className="form-group">
+                <label>日期:</label>
+                <input type="date" className="form-control" value={date} onChange={dateChange} />
+            </div>
+            <div className="form-group">
+                <label>時間:</label>
+                <input type="time" className="form-control" value={time} onChange={timeChange} />
+            </div>
+        </div>
+        <button onClick={addItem} className="add btn btn-primary">新增</button>
     </div>
 }
 

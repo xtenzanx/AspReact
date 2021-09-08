@@ -1,3 +1,12 @@
 ﻿.app {
-    color: red;
+    max-width: 500px;
+    margin: 50px auto;
+}
+
+.list {
+    margin-top: 40px;
+}
+
+.item {
+    margin-bottom: 5px;
 }
