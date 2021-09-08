@@ -33,7 +33,7 @@ const Edit = ({ add, submittingStatus }) => {
         })
     }
 
-    return <div>
+    return <div className="edit">
         <h1>備忘錄</h1>
         <div>
             <div className="form-group">

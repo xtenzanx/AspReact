@@ -26,6 +26,18 @@ namespace ReactIdentityTest.Controllers
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
+
+            //初始化資料
+            for (int index = 1; index < 3; index++)
+            {
+                this.Posts.Add(new Post
+                {
+                    Id = index.ToString(),
+                    Note = "記事" + index,
+                    Date = "2021-09-0" + index,
+                    Time = "18:00"
+                });
+            }
         }
 
         [HttpGet]
@@ -44,16 +56,6 @@ namespace ReactIdentityTest.Controllers
         [HttpGet("GetPosts")]
         public IEnumerable<Post> GetPosts()
         {
-            //var rng = new Random();
-            //return Enumerable.Range(1, 5).Select(index => new Post
-            //{
-            //    Id = index,
-            //    Note = "記事" + index,
-            //    Date = "",
-            //    Time = ""
-            //})
-            //.ToArray();
-
             return this.Posts;
         }
 
