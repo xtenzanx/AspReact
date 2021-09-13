@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using ReactIdentityTest.Data;
 using ReactIdentityTest.Models;
 using System;
 using System.Collections.Generic;
@@ -19,25 +21,13 @@ namespace ReactIdentityTest.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private List<Post> Posts = new List<Post>();
-
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ExampleDbContext _context;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, ExampleDbContext context)
         {
             _logger = logger;
-
-            //初始化資料
-            for (int index = 1; index < 3; index++)
-            {
-                this.Posts.Add(new Post
-                {
-                    Id = index.ToString(),
-                    Note = "記事" + index,
-                    Date = "2021-09-0" + index,
-                    Time = "18:00"
-                });
-            }
+            _context = context;
         }
 
         [HttpGet]
@@ -54,15 +44,25 @@ namespace ReactIdentityTest.Controllers
         }
 
         [HttpGet("GetPosts")]
-        public IEnumerable<Post> GetPosts()
+        public async Task<IEnumerable<Post>> GetPostsAsync()
         {
-            return this.Posts;
+            var posts = await _context.Post.ToListAsync();
+
+            return posts;
         }
 
         [HttpPost("SavePosts")]
-        public void SavePosts(List<Post> posts)
+        public async Task SavePosts(List<Post> posts)
         {
-            this.Posts = posts;
+            //刪除舊有全部紀錄
+            var oldPosts = await _context.Post.ToListAsync();
+            _context.Post.RemoveRange(oldPosts);
+
+            //新增
+            await _context.AddRangeAsync(posts);
+            
+            //更動資料庫
+            await _context.SaveChangesAsync();
         }
     }
 }
